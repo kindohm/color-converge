@@ -1,0 +1,43 @@
+<html>
+
+<body>
+
+    <canvas id="canvas" width="600" height="500"></canvas>
+
+    <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var target = { r: getRandomInt(0, 255), g: getRandomInt(0, 255), b: getRandomInt(0, 255) };
+        var rowCount = 20;
+        var colCount = 20;
+        var rows = [];
+        var squareSize = 20;
+        var factor = 0.1;
+        var offset = 5;
+        
+        for (var r = 0; r < rowCount; r++) {
+            rows.push({ r: getRandomInt(0, 255), g: getRandomInt(0, 255), b: getRandomInt(0, 255) });
+        }
+
+        for (var col = 0; col < colCount; col++){
+            for (var r = 0; r < rowCount; r++){
+                var row = rows[r];
+                var fillString = 'rgb(' + row.r.toString() + ', ' + row.g.toString() + ', ' + row.b.toString() + ')';
+                ctx.fillStyle = fillString;
+                ctx.fillRect(col*(squareSize+offset), r*(squareSize + offset), squareSize, squareSize);
+                row.r += Math.floor((target.r - row.r) * factor);
+                row.g += Math.floor((target.g - row.g) * factor);
+                row.b += Math.floor((target.b - row.b) * factor);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
