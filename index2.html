@@ -13,13 +13,13 @@
 
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
-        var numPoints = 6;
+        var numPoints = 4;
         var target = [];
         var rowCount = 20;
         var colCount = 20;
         var rows = [];
-        var squareSize = 20;
-        var factor = 0.1;
+        var squareSize = 50;
+        var factor = 0.2;
 
         for (var p = 0; p < numPoints; p++) {
             target.push({ x: Math.random() * squareSize, y: Math.random() * squareSize });
