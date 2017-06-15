@@ -1,0 +1,58 @@
+<html>
+
+<body>
+
+    <canvas id="canvas" width="600" height="500"></canvas>
+
+    <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var numPoints = 6;
+        var target = [];
+        var rowCount = 20;
+        var colCount = 20;
+        var rows = [];
+        var squareSize = 20;
+        var factor = 0.1;
+        var offset = 10;
+        var scale = 0.01;
+
+        for (var p = 0; p < numPoints; p++) {
+            target.push({ x: Math.random() * squareSize, y: Math.random() * squareSize });
+        }
+
+        for (var r = 0; r < rowCount; r++) {
+            var row = [];
+            for (var p = 0; p < numPoints; p++) {
+                row.push({ x: Math.random() * squareSize, y: Math.random() * squareSize });
+            }
+            rows.push(row);
+        }
+
+        for (var col = 0; col < colCount; col++) {
+            for (var r = 0; r < rowCount; r++) {
+                var row = rows[r];
+                ctx.strokeStyle = '#000';
+                ctx.beginPath();
+                ctx.moveTo(row[0].x + col * squareSize, row[0].y + r * squareSize);
+                row[0].x += (target[0].x - row[0].x) * factor;
+                row[0].y += (target[0].y - row[0].y) * factor;
+
+                for (var p = 1; p < numPoints; p++) {
+                    ctx.lineTo(row[p].x + col * squareSize, row[p].y + r * squareSize);
+                    ctx.stroke();
+                    row[p].x += (target[p].x - row[p].x) * factor;
+                    row[p].y += (target[p].y - row[p].y) * factor;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
